@@ -182,6 +182,7 @@ class LicenseManagerCliOps:
             self._BIN_SCRIPT.unlink()
 
         self._BIN_SCRIPT.write_text(rendered_template)
+        self._BIN_SCRIPT.chmod(0o755)
 
 
     def remove_license_manager_cli(self):
