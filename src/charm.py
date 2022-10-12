@@ -33,7 +33,7 @@ class LicenseManagerCliCharm(CharmBase):
             self.on.install: self._on_install,
             self.on.config_changed: self._on_config_changed,
             self.on.remove: self._on_remove,
-            self.on.upgrade: self._upgrade,
+            self.on.upgrade_action: self._on_upgrade_action,
         }
         for event, handler in event_handler_bindings.items():
             self.framework.observe(event, handler)
@@ -64,7 +64,7 @@ class LicenseManagerCliCharm(CharmBase):
         """Remove directories and files created by license-manager-cli charm."""
         self._license_manager_agent_ops.remove_license_manager_cli()
 
-    def _upgrade(self, event):
+    def _on_upgrade_action(self, event):
         """Upgrade the license-manager-cli package."""
         version = event.params["version"]
         self._license_manager_cli_ops.upgrade(version)
