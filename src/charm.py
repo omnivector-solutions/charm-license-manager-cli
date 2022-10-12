@@ -41,7 +41,7 @@ class LicenseManagerCliCharm(CharmBase):
     def _on_install(self, event):
         """Install license-manager-cli."""
         try:
-            self._license_manager_agent_ops.install()
+            self._license_manager_cli_ops.install()
         except Exception as e:
             logger.error(f"Error installing license-manager-cli: {e}")
             self.unit.status = BlockedStatus("Installation error")
@@ -62,7 +62,7 @@ class LicenseManagerCliCharm(CharmBase):
 
     def _on_remove(self, event):
         """Remove directories and files created by license-manager-cli charm."""
-        self._license_manager_agent_ops.remove_license_manager_cli()
+        self._license_manager_cli_ops.remove_license_manager_cli()
 
     def _on_upgrade_action(self, event):
         """Upgrade the license-manager-cli package."""
