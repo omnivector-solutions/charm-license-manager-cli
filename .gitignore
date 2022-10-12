@@ -1,0 +1,5 @@
+*/.mypy_cache/
+build/
+*.charm
+license-manager-cli.yaml
+version
