@@ -6,7 +6,6 @@ description: |
     This charm provides the CLI component of license-manager.
 tags:
     - license-manager
-    - scania
     - hpc
 
 subordinate: true
