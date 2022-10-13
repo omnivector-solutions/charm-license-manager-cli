@@ -14,7 +14,7 @@ logger = logging.getLogger()
 class LicenseManagerCliOps:
     """Track and perform license-manager-cli ops."""
 
-    _PYTHON_BIN = Path("/usr/bin/python3.8")
+    _PYTHON_BIN = Path("/usr/bin/python3.6")
     _PACKAGE_NAME = "license-manager-cli"
     _LOG_DIR = Path("/var/log/license-manager-cli")
     _CACHE_DIR = Path("/var/cache/license-manager-cli")
@@ -139,24 +139,16 @@ class LicenseManagerCliOps:
     def configure_etc_default(self):
         """Create the default env file with the charm's configurations."""
         charm_config = self._charm.model.config
-        license_manager_backend_url = charm_config.get("license-manager-backend-url")
-        oidc_domain = charm_config.get("oidc-domain")
-        oidc_audience = charm_config.get("oidc-audience")
-        oidc_client_id = charm_config.get("oidc-client-id")
 
-        ctxt = {
-            "license_manager_backend_url": license_manager_backend_url,
-            "oidc_domain": oidc_domain,
-            "oidc_audience": oidc_audience,
-            "oidc_client_id": oidc_client_id,
-        }
+        # Get the values from the charm's configurations
+        ctx = {k.replace("-", "_"): v for k, v in charm_config.items()}
 
         template_dir = Path("./src/templates/")
         template_file = "license-manager-cli.defaults.template"
         environment = Environment(loader=FileSystemLoader(template_dir))
         template = environment.get_template(template_file)
 
-        rendered_template = template.render(ctxt)
+        rendered_template = template.render(ctx)
 
         if self._ETC_DEFAULT.exists():
             self._ETC_DEFAULT.unlink()
@@ -166,17 +158,12 @@ class LicenseManagerCliOps:
 
     def configure_bin_script(self):
         """Create the lm-cli executable script."""
-
-        ctxt = {
-            "lm_cli_venv_path": self._VENV_DIR.as_posix(),
-        }
-
         template_dir = Path("./src/templates/")
         template_file = "license-manager-cli.script.template"
         environment = Environment(loader=FileSystemLoader(template_dir))
         template = environment.get_template(template_file)
 
-        rendered_template = template.render(ctxt)
+        rendered_template = template.render(lm_cli_venv_path=self._VENV_DIR.as_posix())
 
         if self._BIN_SCRIPT.exists():
             self._BIN_SCRIPT.unlink()
