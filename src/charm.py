@@ -67,7 +67,13 @@ class LicenseManagerCliCharm(CharmBase):
     def _on_upgrade_action(self, event):
         """Upgrade the license-manager-cli package."""
         version = event.params["version"]
-        self._license_manager_cli_ops.upgrade(version)
+        try:
+            self._license_manager_cli_ops.upgrade(version)
+            event.set_results({"upgrade": "success"})
+        except Exception:
+            self.unit.status = BlockedStatus("Error upgrading cluster-agent")
+            event.fail(message="Error upgrading cluster-agent")
+            event.defer()
 
 
 if __name__ == "__main__":
