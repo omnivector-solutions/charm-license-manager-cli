@@ -1,0 +1,20 @@
+name: license-manager-cli
+summary: License Manager CLI
+maintainers:
+    - Omnivector Solutions <info@omnivector.solutions>
+description: |
+    This charm provides the CLI component of license-manager.
+tags:
+    - license-manager
+    - hpc
+
+subordinate: true
+
+series:
+    - centos7
+    - focal
+
+requires:
+    juju-info:
+        interface: juju-info
+        scope: container

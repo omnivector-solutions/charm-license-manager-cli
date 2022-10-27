@@ -1,0 +1,9 @@
+upgrade:
+  description: >
+    Upgrade license-manager-cli to the specified version.
+  params:
+    version:
+      type: string
+      description: Version of license-manager-cli to upgrade to.
+  required:
+    - version

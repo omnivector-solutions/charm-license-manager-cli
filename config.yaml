@@ -1,0 +1,21 @@
+options:
+  license-manager-backend-url:
+    type: string
+    default:
+    description: |
+      The license-manager-backend url.
+  oidc-domain:
+    type: string
+    default:
+    description: |
+      Domain for the OIDC provider API where auth tokens will be fetched.
+  oidc-audience:
+    type: string
+    default:
+    description: |
+      Audience for the OIDC provider issued tokens.
+  oidc-client-id:
+    type: string
+    default:
+    description: |
+      The ID for the OIDC provider app client to which tokens will be issued.
