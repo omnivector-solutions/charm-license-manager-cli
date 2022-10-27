@@ -71,8 +71,8 @@ class LicenseManagerCliCharm(CharmBase):
             self._license_manager_cli_ops.upgrade(version)
             event.set_results({"upgrade": "success"})
         except Exception:
-            self.unit.status = BlockedStatus("Error upgrading cluster-agent")
-            event.fail(message="Error upgrading cluster-agent")
+            self.unit.status = BlockedStatus("Error upgrading license-manager-cli")
+            event.fail(message="Error upgrading license-manager-cli")
             event.defer()
 
 
