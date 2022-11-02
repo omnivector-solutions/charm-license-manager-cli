@@ -14,7 +14,7 @@ logger = logging.getLogger()
 class LicenseManagerCliOps:
     """Track and perform license-manager-cli ops."""
 
-    _PYTHON_BIN = Path("/usr/bin/python3.6")
+    _PYTHON_BIN = Path("/usr/bin/python3.8")
     _PACKAGE_NAME = "license-manager-cli"
     _LOG_DIR = Path("/var/log/license-manager-cli")
     _CACHE_DIR = Path("/var/cache/license-manager-cli")
