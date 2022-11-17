@@ -8,3 +8,4 @@ Unreleased
 ----------
 Create charm to install license-manager-cli
 Change version of Python to 3.8
+Install setuptools before installing license-manager-cli package
