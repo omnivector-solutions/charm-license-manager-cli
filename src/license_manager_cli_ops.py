@@ -67,6 +67,18 @@ class LicenseManagerCliOps:
             "pip",
         ]
         subprocess.call(upgrade_pip_cmd)
+        logger.debug ("pip upgraded")
+
+        # Install setuptools
+        setuptools_pip_cmd = [
+            self._VENV_PYTHON,
+            "-m",
+            "pip",
+            "install",
+            "setuptools",
+        ]
+        subprocess.call(upgrade_pip_cmd)
+        logger.debug ("setuptools installed")
 
         # Install license-manager-cli package
         pip_install_cmd = [
