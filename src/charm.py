@@ -40,6 +40,7 @@ class LicenseManagerCliCharm(CharmBase):
 
     def _on_install(self, event):
         """Install license-manager-cli."""
+        self.unit.set_workload_version(Path("version").read_text().strip())
         try:
             self._license_manager_cli_ops.install()
         except Exception as e:
@@ -54,6 +55,10 @@ class LicenseManagerCliCharm(CharmBase):
         logger.debug("license-manager-cli installed")
         self.unit.status = ActiveStatus("license-manager-cli installed")
         self._stored.installed = True
+
+    def _on_upgrade(self, event):
+        """Perform upgrade operations."""
+        self.unit.set_workload_version(Path("version").read_text().strip())
 
     def _on_config_changed(self, event):
         """Configure license-manager-cli with charm config."""
