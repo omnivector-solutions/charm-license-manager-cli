@@ -75,10 +75,10 @@ class LicenseManagerCliCharm(CharmBase):
         try:
             self._license_manager_cli_ops.upgrade(version)
             event.set_results({"upgrade": "success"})
+            self.unit.status = ActiveStatus(f"Updated to version {version}")
         except Exception:
-            self.unit.status = BlockedStatus("Error upgrading license-manager-cli")
-            event.fail(message="Error upgrading license-manager-cli")
-            event.defer()
+            self.unit.status = BlockedStatus(f"Error updating to version {version}")
+            event.fail()
 
 
 if __name__ == "__main__":
