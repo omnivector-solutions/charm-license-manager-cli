@@ -96,11 +96,11 @@ class LicenseManagerCliOps:
 
         # Delete cache dir if it already exists
         if self._CACHE_DIR.exists():
-            logger.debug(f"Clearing cache dir {self.CACHE_DIR.as_posix()}")
+            logger.debug(f"Clearing cache dir {self._CACHE_DIR.as_posix()}")
             rmtree(self._CACHE_DIR, ignore_errors=True)
         else:
             logger.debug(
-                f"Tried to clean cache dir {self.CACHE_DIR.as_posix()}, but it does not exist"
+                f"Tried to clean cache dir {self._CACHE_DIR.as_posix()}, but it does not exist"
             )
         # Create a clean cache dir
         self._CACHE_DIR.mkdir(parents=True)
