@@ -17,7 +17,6 @@ class LicenseManagerCliOps:
     _PYTHON_BIN = Path("/usr/bin/python3.8")
     _PACKAGE_NAME = "license-manager-cli"
     _LOG_DIR = Path("/var/log/license-manager-cli")
-    _CACHE_DIR = Path("/var/cache/license-manager-cli")
     _ETC_DEFAULT = Path("/etc/default/lm-cli")
     _BIN_SCRIPT = Path("/usr/local/bin/lm-cli")
     _VENV_DIR = Path("/srv/license-manager-cli-venv")
@@ -35,9 +34,6 @@ class LicenseManagerCliOps:
         # Setup log dir
         self.setup_log_dir()
 
-        # Setup cache dir
-        self.setup_cache_dir()
-        
         # Create the virtualenv
         create_venv_cmd = [
             self._PYTHON_BIN.as_posix(),
@@ -92,18 +88,6 @@ class LicenseManagerCliOps:
         self.configure_etc_default()
 
 
-    def setup_cache_dir(self):
-        """Set up cache dir."""
-
-        # Delete cache dir if it already exists
-        if self._CACHE_DIR.exists():
-            rmtree(self._CACHE_DIR, ignore_errors=True)
-        # Create a clean cache dir
-        self._CACHE_DIR.mkdir(parents=True)
-        chown(self._CACHE_DIR.as_posix(), self._SLURM_USER, self._SLURM_GROUP)
-        self._CACHE_DIR.chmod(0o700)
-
-
     def setup_log_dir(self):
         """Set up log dir."""
 
@@ -112,7 +96,6 @@ class LicenseManagerCliOps:
             self._LOG_DIR.mkdir(parents=True)
         chown(self._LOG_DIR.as_posix(), self._SLURM_USER, self._SLURM_GROUP)
         self._LOG_DIR.chmod(0o700)
-
 
     def upgrade(self, version: str):
         """Upgrade license-manager-cli package to specified version."""
@@ -131,10 +114,6 @@ class LicenseManagerCliOps:
             raise Exception("license-manager-cli not upgraded.")
         else:
             logger.debug("license-manager-cli upgraded")
-
-        # Clear cache dir after upgrade to avoid stale data
-        self.setup_cache_dir()
-
 
     def configure_etc_default(self):
         """Create the default env file with the charm's configurations."""
@@ -155,7 +134,6 @@ class LicenseManagerCliOps:
 
         self._ETC_DEFAULT.write_text(rendered_template)
 
-
     def configure_bin_script(self):
         """Create the lm-cli executable script."""
         template_dir = Path("./src/templates/")
@@ -171,10 +149,9 @@ class LicenseManagerCliOps:
         self._BIN_SCRIPT.write_text(rendered_template)
         self._BIN_SCRIPT.chmod(0o755)
 
-
     def remove_license_manager_cli(self):
         """Remove the things we have created."""
-        
+
         # Remove the defaut env file
         if self._ETC_DEFAULT.exists():
             self._ETC_DEFAULT.unlink()
@@ -182,8 +159,7 @@ class LicenseManagerCliOps:
         # Remove the lm-cli script
         if self._BIN_SCRIPT.exists():
             self._BIN_SCRIPT.unlink()
-        
+
         # Delete the directories created
         rmtree(self._LOG_DIR.as_posix(), ignore_errors=True)
-        rmtree(self._CACHE_DIR.as_posix(), ignore_errors=True)
         rmtree(self._VENV_DIR.as_posix(), ignore_errors=True)

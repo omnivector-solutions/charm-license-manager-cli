@@ -40,6 +40,7 @@ class LicenseManagerCliCharm(CharmBase):
 
     def _on_install(self, event):
         """Install license-manager-cli."""
+        self.unit.set_workload_version(Path("version").read_text().strip())
         try:
             self._license_manager_cli_ops.install()
         except Exception as e:
@@ -55,6 +56,10 @@ class LicenseManagerCliCharm(CharmBase):
         self.unit.status = ActiveStatus("license-manager-cli installed")
         self._stored.installed = True
 
+    def _on_upgrade(self, event):
+        """Perform upgrade operations."""
+        self.unit.set_workload_version(Path("version").read_text().strip())
+
     def _on_config_changed(self, event):
         """Configure license-manager-cli with charm config."""
         # Write out the /etc/default/lm-cli config
@@ -67,7 +72,13 @@ class LicenseManagerCliCharm(CharmBase):
     def _on_upgrade_action(self, event):
         """Upgrade the license-manager-cli package."""
         version = event.params["version"]
-        self._license_manager_cli_ops.upgrade(version)
+        try:
+            self._license_manager_cli_ops.upgrade(version)
+            event.set_results({"upgrade": "success"})
+            self.unit.status = ActiveStatus(f"Updated to version {version}")
+        except Exception:
+            self.unit.status = BlockedStatus(f"Error updating to version {version}")
+            event.fail()
 
 
 if __name__ == "__main__":
