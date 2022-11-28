@@ -1,5 +1,4 @@
 """LicenseManagerCliOps."""
-import os
 import logging
 import subprocess
 from pathlib import Path
@@ -64,6 +63,23 @@ class LicenseManagerCliOps:
         ]
         subprocess.call(upgrade_pip_cmd)
 
+        # Install setuptools
+        pip_install_cmd = [
+            self._VENV_PYTHON,
+            "-m",
+            "pip",
+            "install",
+            "setuptools",
+        ]
+        logger.debug(f"## Running: {pip_install_cmd}")
+
+        try:
+            out = subprocess.check_output(pip_install_cmd, env={}).decode().strip()
+            logger.debug("setuptools installed")
+            logger.debug(f"## pip install output: {out}")
+        except Exception as e:
+            logger.error(f"Error installing setuptools: {e}")
+
         # Install license-manager-cli package
         pip_install_cmd = [
             self._VENV_PYTHON,
@@ -73,6 +89,7 @@ class LicenseManagerCliOps:
             self._PACKAGE_NAME,
         ]
         logger.debug(f"## Running: {pip_install_cmd}")
+
         try:
             out = subprocess.check_output(pip_install_cmd, env={}).decode().strip()
             logger.debug("license-manager-cli installed")
@@ -86,7 +103,6 @@ class LicenseManagerCliOps:
 
         # Create the etc/default/lm-cli file
         self.configure_etc_default()
-
 
     def setup_log_dir(self):
         """Set up log dir."""
@@ -104,14 +120,15 @@ class LicenseManagerCliOps:
             self._VENV_PYTHON,
             "-m",
             "pip",
+            "install",
             "--upgrade",
             f"{self._PACKAGE_NAME}=={version}",
         ]
 
-        out = subprocess.check_output(pip_install_cmd).decode().strip()
+        out = subprocess.check_output(pip_install_cmd, env={}).decode().strip()
+
         if "Successfully installed" not in out:
             logger.error("Trouble upgrading license-manager-cli, please debug")
-            raise Exception("license-manager-cli not upgraded.")
         else:
             logger.debug("license-manager-cli upgraded")
 
