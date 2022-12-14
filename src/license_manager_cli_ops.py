@@ -132,6 +132,20 @@ class LicenseManagerCliOps:
         else:
             logger.debug("license-manager-cli upgraded")
 
+    def get_version_info(self):
+        """Show version and info about license-manager-cli."""
+        cmd = [
+            self._VENV_PYTHON,
+            "-m",
+            "pip",
+            "show",
+            self._PACKAGE_NAME
+        ]
+
+        out = subprocess.check_output(cmd, env={}).decode().strip()
+
+        return out
+
     def configure_etc_default(self):
         """Create the default env file with the charm's configurations."""
         charm_config = self._charm.model.config

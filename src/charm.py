@@ -34,6 +34,7 @@ class LicenseManagerCliCharm(CharmBase):
             self.on.config_changed: self._on_config_changed,
             self.on.remove: self._on_remove,
             self.on.upgrade_action: self._on_upgrade_action,
+            self.on.show_version_action: self._on_show_version_action,
         }
         for event, handler in event_handler_bindings.items():
             self.framework.observe(event, handler)
@@ -59,6 +60,11 @@ class LicenseManagerCliCharm(CharmBase):
     def _on_upgrade(self, event):
         """Perform upgrade operations."""
         self.unit.set_workload_version(Path("version").read_text().strip())
+
+    def _on_show_version_action(self, event):
+        """Show the info and version of license-manager-cli."""
+        info = self._license_manager_cli_ops.get_version_info()
+        event.set_results({"license-manager-cli": info})
 
     def _on_config_changed(self, event):
         """Configure license-manager-cli with charm config."""
