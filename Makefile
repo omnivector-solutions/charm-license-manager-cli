@@ -19,4 +19,4 @@ clean: ## Remove build dirs, temp files, and charms
 .PHONY: charm
 charm: version ## Pack the charm
 	@charmcraft pack
-	@cp license-manager-cli_ubuntu-20.04-amd64_centos-7-amd64.charm license-manager-cli.charm
+	@mv license-manager-cli_*.charm license-manager-cli.charm
