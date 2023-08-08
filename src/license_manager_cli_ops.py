@@ -49,7 +49,7 @@ class LicenseManagerCliOps:
             "-m",
             "ensurepip",
         ]
-        subprocess.call(ensure_pip_cmd)
+        subprocess.check_output(ensure_pip_cmd, env={})
         logger.debug("pip ensured")
 
         # Ensure we have the latest pip
