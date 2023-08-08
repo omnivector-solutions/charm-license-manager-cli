@@ -14,7 +14,7 @@ series:
     - centos7
     - centos8
     - focal
-    - Jammy
+    - jammy
 
 requires:
     juju-info:
