@@ -7,6 +7,9 @@ This file keeps track of all notable changes to the License Manager CLI charm.
 Unreleased
 ----------
 
+* Drop Python 3.6 support
+* Drop CentOS 8 support
+
 1.0.2 - 2023-08-08
 ------------------
 * Add support for Rocky Linux and Ubuntu Jammy
