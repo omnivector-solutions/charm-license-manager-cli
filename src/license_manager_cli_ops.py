@@ -13,7 +13,7 @@ logger = logging.getLogger()
 class LicenseManagerCliOps:
     """Track and perform license-manager-cli ops."""
 
-    _PYTHON_BIN = Path("/usr/local/bin/python3.8")
+    _PYTHON_BIN = Path("/opt/python/python3.12/bin/python3.12")
     _PACKAGE_NAME = "license-manager-cli"
     _LOG_DIR = Path("/var/log/license-manager-cli")
     _ETC_DEFAULT = Path("/etc/default/lm-cli")

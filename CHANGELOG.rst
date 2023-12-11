@@ -9,6 +9,7 @@ Unreleased
 
 * Drop Python 3.6 support
 * Drop CentOS 8 support
+* Installed Python 3.12 to run the CLI
 
 1.0.2 - 2023-08-08
 ------------------
