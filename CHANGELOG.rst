@@ -7,6 +7,8 @@ This file keeps track of all notable changes to the License Manager CLI charm.
 Unreleased
 ----------
 
+1.0.3 - 2023-12-11
+------------------
 * Drop Python 3.6 support
 * Drop CentOS 8 support
 * Installed Python 3.12 to run the CLI
