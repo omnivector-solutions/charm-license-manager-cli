@@ -7,15 +7,19 @@ This file keeps track of all notable changes to the License Manager CLI charm.
 Unreleased
 ----------
 
+1.0.4 - 2024-06-24
+------------------
+- Fix indentation in dispatch file
+
 1.0.3 - 2023-12-11
 ------------------
-* Drop Python 3.6 support
-* Drop CentOS 8 support
-* Installed Python 3.12 to run the CLI
+- Drop Python 3.6 support
+- Drop CentOS 8 support
+- Installed Python 3.12 to run the CLI
 
 1.0.2 - 2023-08-08
 ------------------
-* Add support for Rocky Linux and Ubuntu Jammy
+- Add support for Rocky Linux and Ubuntu Jammy
 
 1.0.1 - 2023-05-23
 ------------------
