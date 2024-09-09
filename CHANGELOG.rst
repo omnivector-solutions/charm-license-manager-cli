@@ -6,6 +6,7 @@ This file keeps track of all notable changes to the License Manager CLI charm.
 
 Unreleased
 ----------
+- Remove support for CentOS
 
 1.0.4 - 2024-06-24
 ------------------
