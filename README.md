@@ -32,7 +32,6 @@ Create a text file `license-manager-cli.yaml` with this content:
 license-manager-cli:
   license-manager-backend-url: "http://<url-pointing-to-the-license-manager-backend>"
   oidc-domain: "<domain-collected-from-oidc>"
-  oidc-audience: "<audience-for-oidc-api>"
   oidc-client-id: "<client-id-for-oidc-app>"
 ```
 
