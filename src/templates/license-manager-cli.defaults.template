@@ -1,4 +1,3 @@
 LM_API_ENDPOINT={{ license_manager_backend_url }}
 OIDC_DOMAIN={{ oidc_domain }}
-OIDC_AUDIENCE={{ oidc_audience }}
 OIDC_CLIENT_ID={{ oidc_client_id }}

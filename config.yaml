@@ -9,11 +9,6 @@ options:
     default:
     description: |
       Domain for the OIDC provider API where auth tokens will be fetched.
-  oidc-audience:
-    type: string
-    default:
-    description: |
-      Audience for the OIDC provider issued tokens.
   oidc-client-id:
     type: string
     default:
